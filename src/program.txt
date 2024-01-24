@@ -1,0 +1,34 @@
+; print out the two numbers
+lda var1
+swi 0
+lda var2
+swi 0
+
+sta counter ; counter is the number of times we add var1 to result (so is set to var2)
+; check that counter is not 0
+jne loop
+jmp end
+
+; repeatedly add var1 to result
+loop
+lda result
+add var1
+sta result
+
+; decrement counter
+lda counter
+sub one
+sta counter
+jne loop
+
+; print out the result and halt
+end
+lda result
+swi 0
+stp
+
+var1 defw 15
+var2 defw 3
+counter defw 0
+result defw 0
+one defw 1
